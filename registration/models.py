@@ -9,14 +9,18 @@ from django.core.files.base import ContentFile
 import tempfile
 from django.contrib.auth.models import AbstractUser
 
+
 class Blog(models.Model):
     title = models.CharField(max_length=255, blank=True)
     content = models.TextField()  # This will store the content as text
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    title_image = models.ImageField(upload_to='blog_images/', blank=True, null=True)  # New field for the title image
+
     def __str__(self):
         return self.title
+
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     enrollment = models.CharField(max_length=100, unique=True)
